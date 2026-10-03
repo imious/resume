@@ -5,7 +5,7 @@ import * as THREE from 'three'
 import type { MutableRefObject, ReactNode } from 'react'
 
 type ProgressRef = MutableRefObject<number>
-
+const headModel = `${import.meta.env.BASE_URL}assets/head.glb`
 /* If WebGL or the model fails, the page must survive — render nothing instead. */
 class GLBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
   state = { failed: false }
@@ -21,7 +21,7 @@ class GLBoundary extends Component<{ children: ReactNode }, { failed: boolean }>
 }
 
 function Head({ progress }: { progress: ProgressRef }) {
-  const { scene } = useGLTF('/assets/head.glb', '/draco/')
+  const { scene } = useGLTF(headModel)
   const group = useRef<THREE.Group>(null)
 
   // Normalize: center the model at origin and scale to a consistent size,
@@ -94,4 +94,4 @@ export default function HeadCanvas({ progress }: { progress: ProgressRef }) {
   )
 }
 
-useGLTF.preload('/assets/head.glb', '/draco/')
+useGLTF.preload(headModel)
